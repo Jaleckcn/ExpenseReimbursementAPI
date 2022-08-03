@@ -1,4 +1,4 @@
-package dev.canlapan.handlers.ExpenseHandler.EmployeeHandlers;
+package dev.canlapan.handlers.EmployeeHandlers;
 
 import com.google.gson.Gson;
 import dev.canlapan.app.App;
