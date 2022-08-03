@@ -1,4 +1,4 @@
-package dev.canlapan.handlers.ExpenseHandler;
+package dev.canlapan.handlers.ExpenseHandlers;
 
 import com.google.gson.Gson;
 import dev.canlapan.app.App;

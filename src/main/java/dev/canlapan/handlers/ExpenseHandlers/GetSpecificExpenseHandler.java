@@ -1,4 +1,4 @@
-package dev.canlapan.handlers.ExpenseHandler;
+package dev.canlapan.handlers.ExpenseHandlers;
 
 import com.google.gson.Gson;
 import dev.canlapan.app.App;
@@ -6,7 +6,8 @@ import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
 
-public class GetAllExpensesHandler implements Handler {
+public class GetSpecificExpenseHandler implements Handler {
+
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
         Gson gson = new Gson();
@@ -15,4 +16,3 @@ public class GetAllExpensesHandler implements Handler {
         ctx.status(200);
     }
 }
-

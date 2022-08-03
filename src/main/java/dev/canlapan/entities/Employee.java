@@ -15,6 +15,9 @@ public class Employee {
         this.employeeLastName = employeeLastName;
     }
 
+    public static void updateEmployee(Employee employee) {
+    }
+
     public int getEmployeeID() {
         return employeeID;
     }

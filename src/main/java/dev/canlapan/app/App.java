@@ -1,11 +1,12 @@
 package dev.canlapan.app;
 
 import dev.canlapan.daos.EmployeeDAOLocal;
+import dev.canlapan.daos.EmployeeDAOPostgres;
 import dev.canlapan.daos.ExpenseDAOLocal;
 import dev.canlapan.entities.Employee;
 import dev.canlapan.entities.Expense;
 import dev.canlapan.handlers.EmployeeHandlers.*;
-import dev.canlapan.handlers.ExpenseHandler.*;
+import dev.canlapan.handlers.ExpenseHandlers.*;
 import dev.canlapan.services.EmployeeService;
 import dev.canlapan.services.EmployeeServiceImpl;
 import dev.canlapan.services.ExpenseService;
@@ -18,7 +19,7 @@ import java.util.List;
 public class App {
     public static List<Employee> employee = new ArrayList();
     public static List<Expense> expense = new ArrayList();
-    public static EmployeeService employeeService = new EmployeeServiceImpl(new EmployeeDAOLocal());
+    public static EmployeeService employeeService = new EmployeeServiceImpl(new EmployeeDAOPostgres());
     public static ExpenseService expenseService = new ExpenseServiceImpl(new ExpenseDAOLocal());
 
     public static void main(String[] args) {
