@@ -1,4 +1,4 @@
-package dev.canlapan.handlers.EmployeeHandlers;
+package dev.canlapan.handlers.ExpenseHandler.EmployeeHandlers;
 
 import dev.canlapan.app.App;
 import io.javalin.http.Context;

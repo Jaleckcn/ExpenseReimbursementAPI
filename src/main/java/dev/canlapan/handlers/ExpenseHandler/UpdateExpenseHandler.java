@@ -11,11 +11,19 @@ public class UpdateExpenseHandler implements Handler {
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
 
-//        String expenseJSON = ctx.body();
-//        Gson gson = new Gson();
-//        Expense expense = gson.fromJson(expenseJSON, Expense.class);
-//        Expense updatedExpense = App.expenseService.modifyExpense(expense);
-//        String json = gson.toJson(updatedExpense);
-//        ctx.result(json);
+        int expenseID = Integer.parseInt(ctx.pathParam("expenseID"));
+        String expenseJSON = ctx.body();
+        Gson gson = new Gson();
+        Expense expense = gson.fromJson(expenseJSON, Expense.class);
+        Expense updatedExpense = App.expenseService.modifyExpense(expenseID, expense);
+
+        try {
+            String json = gson.toJson(updatedExpense);
+            ctx.status(201);
+            ctx.result("An employee's expense field has been updated");
+        } catch (RuntimeException e) {
+            ctx.status(404);
+            ctx.result("Expense not found");
+        }
     }
 }

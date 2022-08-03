@@ -10,12 +10,12 @@ import org.jetbrains.annotations.NotNull;
 public class CreateExpenseHandler implements Handler {
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
-//        String json = ctx.body();
-//        Gson gson = new Gson();
-//        Expense expense = gson.fromJson(json, Expense.class);
-//        Expense registerExpense = App.expenseService.registerExpense(expense);
-//        String expenseJson = gson.toJson(registerExpense);
-//        ctx.status(201); //successful in creating new Expense
-//        ctx.result(expenseJson);
+        String json = ctx.body();
+        Gson gson = new Gson();
+        Expense expense = gson.fromJson(json, Expense.class);
+        Expense registerExpense = App.expenseService.registerExpense(expense);
+        String expenseJson = gson.toJson(registerExpense);
+        ctx.status(201); //successful in creating new Expense
+        ctx.result(expenseJson);
     }
 }

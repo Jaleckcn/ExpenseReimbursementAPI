@@ -1,4 +1,4 @@
-package dev.canlapan.handlers.EmployeeHandlers;
+package dev.canlapan.handlers.ExpenseHandler.EmployeeHandlers;
 
 import com.google.gson.Gson;
 import dev.canlapan.app.App;
@@ -18,7 +18,7 @@ public class CreateEmployeesHandler implements Handler {
         Employee registerEmployee = App.employeeService.registerEmployee(employee);
         String employeesJson = gson.toJson(registerEmployee);
         App.employee.add(employee);
-        ctx.status(201);
+        ctx.status(201);//successful in creating new Employee
         ctx.result(employeesJson);
     }
 }

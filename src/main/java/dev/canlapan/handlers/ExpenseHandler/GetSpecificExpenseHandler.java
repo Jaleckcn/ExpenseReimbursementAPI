@@ -1,5 +1,6 @@
 package dev.canlapan.handlers.ExpenseHandler;
 
+import com.google.gson.Gson;
 import dev.canlapan.app.App;
 import dev.canlapan.entities.Expense;
 import io.javalin.http.Context;
@@ -10,7 +11,9 @@ public class GetSpecificExpenseHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
-//        int expenseID = Integer.parseInt(ctx.pathParam("expenseID"));
-//        Expense expense = App.expenseService.retrieveExpenseByID(expenseID);
+        Gson gson = new Gson();
+        String json = gson.toJson(App.expenseService.getAllExpenses());
+        ctx.result(json);
+        ctx.status(200);
     }
 }
