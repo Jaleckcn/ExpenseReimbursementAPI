@@ -2,7 +2,7 @@ package dev.canlapan.entities;
 
 public class Expense {// class are singular, handles are plural
     private int expenseID;//expense ID number
-    private double expenseAmount;//ranging from $0.01 to $x.xx
+    private float expenseAmount;//ranging from $0.01 to $x.xx
     private Status expenseStatus;//PENDING, APPROVED, DENIED
 
     private int employeeID;//employee ID the expense is tied to
@@ -10,7 +10,7 @@ public class Expense {// class are singular, handles are plural
     private String type; //type of expense Business travel, education, supplies, tools
 
 
-    public Expense(int expenseID, double expenseAmount, Status expenseStatus, int employeeID, String description, String type) {
+    public Expense(int expenseID, float expenseAmount, Status expenseStatus, int employeeID, String description, String type) {
         this.expenseID = expenseID;
         this.expenseAmount = expenseAmount;
         this.expenseStatus = expenseStatus;
@@ -27,11 +27,11 @@ public class Expense {// class are singular, handles are plural
         this.expenseID = expenseID;
     }
 
-    public double getExpenseAmount() {
+    public float getExpenseAmount() {
         return expenseAmount;
     }
 
-    public void setExpenseAmount(double expenseAmount) {
+    public void setExpenseAmount(float expenseAmount) {
         this.expenseAmount = expenseAmount;
     }
 

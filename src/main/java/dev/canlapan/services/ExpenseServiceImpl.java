@@ -4,6 +4,7 @@ import dev.canlapan.daos.ExpenseDAO;
 import dev.canlapan.daos.ExpenseDAOLocal;
 import dev.canlapan.entities.Employee;
 import dev.canlapan.entities.Expense;
+import dev.canlapan.entities.Status;
 
 import java.util.List;
 
@@ -46,6 +47,26 @@ public class ExpenseServiceImpl implements ExpenseService{
     public boolean deleteExpenseID(int expenseID) {
         boolean isSuccessful = this.expenseDAO.deleteExpenseByID(expenseID);
         return isSuccessful;
+    }
+
+    @Override
+    public Status approveExpenseByID(int expenseID) {
+        if (expenseDAO.getExpenseByID(expenseID)!=null){
+            expenseDAO.getExpenseByID(expenseID).setExpenseStatus(Status.APPROVED);
+            return Status.APPROVED;
+        } else {
+            throw new RuntimeException("Expense ID does not exist");
+        }
+    }
+
+    @Override
+    public Status denyExpenseByID(int expenseID) {
+        if (expenseDAO.getExpenseByID(expenseID)!=null){
+            expenseDAO.getExpenseByID(expenseID).setExpenseStatus(Status.DENIED);
+            return Status.DENIED;
+        } else {
+            throw new RuntimeException("Expense ID does not exist");
+        }
     }
 
     @Override

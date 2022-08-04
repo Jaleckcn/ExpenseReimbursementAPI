@@ -16,6 +16,7 @@ public class CreateEmployeesHandler implements Handler {
         Gson gson = new Gson();
         Employee employee = gson.fromJson(json, Employee.class);
         Employee registerEmployee = App.employeeService.registerEmployee(employee);
+        System.out.println(registerEmployee);
         String employeesJson = gson.toJson(registerEmployee);
         App.employee.add(employee);
         ctx.status(201);//successful in creating new Employee

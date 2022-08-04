@@ -16,32 +16,32 @@ public class EmployeesDAOTests {
 
     static EmployeeDAO employeeDAO = new EmployeeDAOPostgres();
 
-//    @BeforeAll // this method will execute before any tests
-//    static void setup(){
-//        try(Connection conn = ConnectionUtil.createConnection()){
-//            String sql = "create table employee(\n" +
-//                    "\temployee_id serial primary key,\n" +
-//                    "\tfirst_name varchar(100) not null,\n" +
-//                    "\tlast_name varchar(100) not null\n" +
-//                    ");";
-//
-//            Statement statement = conn.createStatement();
-//            statement.execute(sql);
-//
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @Test
-//    @Order(1)
-//    void create_employee_test(){
-//        Employee employee = new Employee(0, "Jalec","Canlapan");
-//        Employee savedEmployee = this.employeeDAO.createEmployee(employee);
-//        Assertions.assertNotEquals(0,savedEmployee.getEmployeeID());
-//        System.out.println(employee);
-//    }
-//
+    @BeforeAll // this method will execute before any tests
+    static void setup(){
+        try(Connection conn = ConnectionUtil.createConnection()){
+            String sql = "create table employee(\n" +
+                    "\temployee_id serial primary key,\n" +
+                    "\tfirst_name varchar(100) not null,\n" +
+                    "\tlast_name varchar(100) not null\n" +
+                    ");";
+
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    @Order(1)
+    void create_employee_test(){
+        Employee employee = new Employee(0, "Jalec","Canlapan");
+        Employee savedEmployee = this.employeeDAO.createEmployee(employee);
+        Assertions.assertNotEquals(0,savedEmployee.getEmployeeID());
+        System.out.println(employee);
+    }
+
 //    @Test
 //    @Order(2)
 //    void get_employee_by_id_test(){
@@ -81,5 +81,16 @@ public class EmployeesDAOTests {
 //        Assertions.assertEquals(3,employeeList.size());
 //
 //    }
+        @AfterAll // Runs after the last tests finishes
+    //If you don't want the table to be deleted, just comment this section out
+    static void teardown(){
+        try(Connection connection = ConnectionUtil.createConnection()){
+            String sql = "drop table employee";
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
 }

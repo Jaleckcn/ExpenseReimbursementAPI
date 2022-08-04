@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAOPostgres implements EmployeeDAO {
+
     @Override
     public Employee createEmployee(Employee employee) {
         try(Connection conn = ConnectionUtil.createConnection()){
@@ -25,13 +26,14 @@ public class EmployeeDAOPostgres implements EmployeeDAO {
 
             int generatedKey = rs.getInt("employeeID");
             employee.setEmployeeID(generatedKey);
+            System.out.println(employee);
             return employee;
 
 
         }catch(SQLException e){
-
+            return null;
         }
-        return null;
+
     }
 
 
