@@ -1,7 +1,9 @@
 package dev.canlapan.daos;
 
+import dev.canlapan.entities.Employee;
 import dev.canlapan.entities.Expense;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,26 +15,41 @@ public class ExpenseDAOLocal implements ExpenseDAO {
     private int expenseIDMaker = 1;
     @Override
     public Expense createExpense(Expense expense) {
-        return null;
+        expense.setExpenseID(expenseIDMaker);
+        expenseIDMaker++;
+        expenseTable.put(expense.getExpenseID(),expense);
+        return expense;
     }
 
     @Override
     public Expense getExpenseByID(int expenseID) {
-        return null;
+        return expenseTable.get(expenseID);
     }
 
     @Override
     public List<Expense> getAllExpenses() {
-        return null;
+       List<Expense> temp = new ArrayList();
+        for (Map.Entry<Integer, Expense> id : expenseTable.entrySet()){
+            temp.add(id.getValue());
+        }
+        return temp;
+
     }
 
     @Override
     public Expense updateExpense(int expenseID, Expense expense) {
-        return null;
+
+        return expenseTable.put(expenseID,expense);
     }
 
     @Override
     public boolean deleteExpenseByID(int expenseID) {
-        return false;
+
+        Expense expense = expenseTable.remove(expenseID);
+        if(expense == null) {
+            return false;
+        }
+        return true;
     }
+
 }

@@ -19,7 +19,7 @@ import java.util.List;
 public class App {
     public static List<Employee> employee = new ArrayList();
     public static List<Expense> expense = new ArrayList();
-    public static EmployeeService employeeService = new EmployeeServiceImpl(new EmployeeDAOPostgres());
+    public static EmployeeService employeeService = new EmployeeServiceImpl(new EmployeeDAOLocal());
     public static ExpenseService expenseService = new ExpenseServiceImpl(new ExpenseDAOLocal());
 
     public static void main(String[] args) {
@@ -47,12 +47,15 @@ public class App {
 
         app.post("/expenses",createExpenseHandler);
         app.get("/expenses",getAllExpensesHandler);
-        app.get("/expenses?status=pending", patchExpenseHandler);
-        app.get("expenses/{id}",getSpecificExpenseHandler);
-        app.put("/expenses/{id}",updateExpenseHandler);
-        app.patch("/expenses/{id}",patchExpenseHandler); //patch is used to change the Status field of the Expenses
-        app.patch("/expense/{id}",patchExpenseHandler);
-        app.delete("/expenses/{id}",deleteExpenseHandler);
+        app.get("/expenses/{status}", patchExpenseHandler); //question mark denotes the following key as the query parameter
+        app.get("expenses/{expenseID}",getSpecificExpenseHandler);
+        app.put("/expenses/{expenseID}",updateExpenseHandler);
+//        app.patch("/expenses/{expenseID}/approve",patchExpenseHandler); //patch is used to change the Status field of the Expenses
+//        app.patch("/expense/{expenseID}/deny",patchExpenseHandler);
+        app.delete("/expenses/{expenseID}",deleteExpenseHandler);
+//
+//        app.get("/employees/{id}/expenses",null); //returns expenses for employee 120
+//        app.post("/employees/{id}/expenses",null);//adds an expense to employee 120
 
 
         app.start();

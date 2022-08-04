@@ -10,8 +10,9 @@ public class GetSpecificExpenseHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
+        int expenseID = Integer.parseInt(ctx.pathParam("expenseID"));
         Gson gson = new Gson();
-        String json = gson.toJson(App.expenseService.getAllExpenses());
+        String json = gson.toJson(App.expenseService.retrieveExpenseByID(expenseID));
         ctx.result(json);
         ctx.status(200);
     }

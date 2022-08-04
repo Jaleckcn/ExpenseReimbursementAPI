@@ -15,14 +15,19 @@ public class UpdateSpecificEmployeeHandler implements Handler {
         Gson gson = new Gson();
         Employee employee = gson.fromJson(employeeJSON, Employee.class);
         Employee updateEmployee = App.employeeService.modifyEmployee(employeeID, employee);
-
+        String json = gson.toJson(updateEmployee);
         try {
-            String json = gson.toJson(updateEmployee);
-            ctx.status(201);
-            ctx.result("An employee's field has been updated");
+            System.out.println(json.getClass().getName());
+            if (json.equals("null")) {
+                ctx.status(404);
+                ctx.result("Employee ID " + employeeID + " not found");
+            } else {
+                ctx.result(json);
+                ctx.status(200);
+            }
         } catch (RuntimeException e) {
-            ctx.status(404);
-            ctx.result("Employee ID not found");
+            ctx.status(500);
+            ctx.result("Employee ID " + employeeID + " not found");
         }
     }
 }

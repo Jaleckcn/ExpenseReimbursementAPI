@@ -1,19 +1,20 @@
 package dev.canlapan.entities;
 
 public class Expense {// class are singular, handles are plural
-    private int expenseID;//id
-    private double expenseAmount;//
-    private Status expenseStatus;//
-    private Employee employee;
-    private String description;//a description field
-    private String type; //type of expense
+    private int expenseID;//expense ID number
+    private double expenseAmount;//ranging from $0.01 to $x.xx
+    private Status expenseStatus;//PENDING, APPROVED, DENIED
+
+    private int employeeID;//employee ID the expense is tied to
+    private String description;//a description field, ex) hotel accomodations, gas, food
+    private String type; //type of expense Business travel, education, supplies, tools
 
 
-    public Expense(int expenseID, double expenseAmount, Status expenseStatus, Employee employee, String description, String type) {
+    public Expense(int expenseID, double expenseAmount, Status expenseStatus, int employeeID, String description, String type) {
         this.expenseID = expenseID;
         this.expenseAmount = expenseAmount;
         this.expenseStatus = expenseStatus;
-        this.employee = employee;
+        this.employeeID = employeeID;
         this.description = description;
         this.type = type;
     }
@@ -42,12 +43,12 @@ public class Expense {// class are singular, handles are plural
         this.expenseStatus = expenseStatus;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public int getEmployeeID() {
+        return employeeID;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeID(int employeeID) {
+        this.employeeID = employeeID;
     }
 
     public String getDescription() {
@@ -69,7 +70,8 @@ public class Expense {// class are singular, handles are plural
     @Override
     public String toString() {
         return "Expense{" +
-                " Expense id=" + expenseID +
+                 "Employee ID= " + employeeID + '\'' +
+                " Expense ID=" + expenseID + '\'' +
                 ", Expense Amount='" + expenseAmount + '\'' +
                 ", Description='" + description + '\'' +
                 ", Type='" + type + '\'' +

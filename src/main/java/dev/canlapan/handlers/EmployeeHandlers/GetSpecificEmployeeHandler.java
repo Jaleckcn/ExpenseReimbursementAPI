@@ -17,9 +17,16 @@ public class GetSpecificEmployeeHandler implements Handler {
         Gson gson = new Gson();
        try {
            String json = gson.toJson(employee);
-           ctx.result(json);
+           System.out.println(json.getClass().getName());
+           if (json.equals("null")) {
+               ctx.status(404);
+               ctx.result("Employee ID " + employeeID + " not found");
+           } else {
+               ctx.result(json);
+               ctx.status(200);
+           }
        } catch (RuntimeException e) {
-           ctx.status(404);
+           ctx.status(500);
            ctx.result("Employee ID " + employeeID + " not found");
        }
     }

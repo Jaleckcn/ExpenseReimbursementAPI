@@ -9,14 +9,14 @@ public class DeleteExpenseHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
-        int expensesID = Integer.parseInt(ctx.pathParam("expensesID"));
+        int expensesID = Integer.parseInt(ctx.pathParam("expenseID"));
         boolean result = App.expenseService.deleteExpenseID(expensesID);
         if(result){
-            ctx.status(404);
-            ctx.result("Expense not found");
+            ctx.status(201);
+            ctx.result("Expense has been deleted");
         }else{
-            ctx.status(422);
-            ctx.result("Expense is approved or denied. Cannot delete the expense");
+            ctx.status(404);
+            ctx.result("Cannot find the Expense");
         }
     }
 }

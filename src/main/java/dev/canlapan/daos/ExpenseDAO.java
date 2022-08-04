@@ -1,13 +1,12 @@
 package dev.canlapan.daos;
 
-import dev.canlapan.entities.Employee;
 import dev.canlapan.entities.Expense;
 
 import java.util.List;
 
 public interface ExpenseDAO {
     //Create an expense
-    Expense createExpense(Expense expense); //method
+    Expense createExpense(Expense expense);
 
     //Read
     Expense getExpenseByID(int expenseID); //method

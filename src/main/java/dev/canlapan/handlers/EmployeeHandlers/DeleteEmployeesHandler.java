@@ -14,7 +14,8 @@ public class DeleteEmployeesHandler implements Handler {
         if(result){
             ctx.status(200);//status code meaning success but nothing is returned
             ctx.result("Deleted Employee ID " + employeeID);
-        }else{
+            result = false;
+        }else {
             ctx.status(404);
             ctx.result("Employee ID " + employeeID +" not found");
         }
