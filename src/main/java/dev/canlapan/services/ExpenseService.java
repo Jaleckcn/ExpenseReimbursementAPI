@@ -11,6 +11,8 @@ public interface ExpenseService {
 
     List<Expense> getAllExpenses();
 
+    List<Expense> getStatus(Status status);
+
     boolean deleteExpenseID(int expenseID);
 
     Status approveExpenseByID(int expenseID);

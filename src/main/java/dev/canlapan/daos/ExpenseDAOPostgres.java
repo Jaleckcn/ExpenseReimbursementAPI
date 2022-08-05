@@ -1,0 +1,129 @@
+package dev.canlapan.daos;
+
+import dev.canlapan.entities.Employee;
+import dev.canlapan.entities.Expense;
+import dev.canlapan.entities.Status;
+import dev.canlapan.utils.ConnectionUtil;
+import jdk.jshell.Snippet;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ExpenseDAOPostgres implements ExpenseDAO {
+    @Override
+    public Expense createExpense(Expense expense) {
+        try(Connection conn = ConnectionUtil.createConnection()) {
+            //insert into expense values (default, 1, 50.00, 'PENDING','Used company car for work','Gas');
+
+            String sql = "insert into expense values (default, ?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setInt(1, expense.getEmployeeID());
+            preparedStatement.setDouble(2, expense.getExpenseAmount());
+            preparedStatement.setString(3, Status.PENDING.name());//.name is toString for ENUMS
+            preparedStatement.setString(4, expense.getDescription());
+            preparedStatement.setString(5, expense.getType());
+
+            preparedStatement.execute();
+
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            rs.next();
+
+            return expense;
+        }catch(SQLException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Expense getExpenseByID(int expenseID) {
+        //Ex.) insert into expense values (default, 1, 50.00, 'PENDING','Used company car for work','Gas');
+        try(Connection connection = ConnectionUtil.createConnection()){
+            String sql = "select * from employee where expense_id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1,expenseID);
+
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+
+            Expense expense = new Expense();
+            expense.setExpenseID(rs.getInt("expense_id"));
+            expense.setEmployeeID(rs.getInt("employee_id"));
+            expense.setExpenseAmount(rs.getFloat("expense_amount"));
+            expense.setExpenseStatus(Status.valueOf(rs.getString("expense_status")));
+            expense.setDescription(rs.getString("description"));
+            expense.setType(rs.getString("type"));
+
+            return expense;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Expense> getAllExpenses() {
+        try(Connection connection = ConnectionUtil.createConnection()){
+            String sql = "select * from expense";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            List<Expense> expenseList = new ArrayList();
+            while(rs.next()){
+                Expense expense = new Expense();
+                expense.setExpenseID(rs.getInt("expense_id"));
+                expense.setEmployeeID(rs.getInt("employee_id"));
+                expense.setExpenseAmount(rs.getFloat("expense_amount"));
+                expense.setExpenseStatus(Status.valueOf(rs.getString("expense_status")));
+                expense.setDescription(rs.getString("description"));
+                expense.setType(rs.getString("type"));
+                expenseList.add(expense);
+            }
+            return expenseList;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Expense updateExpense(int expenseID, Expense expense) {
+        try(Connection conn = ConnectionUtil.createConnection()){
+
+            String sql = "update expense set employee_id = ?, expense_amount = ?, description = ?, type = ? where expense_id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setInt(1, expense.getEmployeeID());
+            preparedStatement.setFloat(2, expense.getExpenseAmount());
+            preparedStatement.setString(3,expense.getDescription());
+            preparedStatement.setString(4,expense.getType());
+            preparedStatement.setInt(5,expense.getExpenseID());
+
+            preparedStatement.executeUpdate();
+            return expense;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean deleteExpenseByID(int expenseID) {
+        try(Connection conn = ConnectionUtil.createConnection()){
+            String sql = "delete from expense where expense_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,expenseID);
+            ps.execute();
+            return true;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+}

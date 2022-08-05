@@ -44,6 +44,11 @@ public class ExpenseServiceImpl implements ExpenseService{
     }
 
     @Override
+    public List<Expense> getStatus(Status status) {
+        return null;
+    }
+
+    @Override
     public boolean deleteExpenseID(int expenseID) {
         boolean isSuccessful = this.expenseDAO.deleteExpenseByID(expenseID);
         return isSuccessful;

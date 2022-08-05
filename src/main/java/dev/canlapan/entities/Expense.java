@@ -19,6 +19,10 @@ public class Expense {// class are singular, handles are plural
         this.type = type;
     }
 
+    public Expense() {
+
+    }
+
     public int getExpenseID() {
         return expenseID;
     }

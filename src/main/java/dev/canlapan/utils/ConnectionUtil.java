@@ -9,7 +9,7 @@ public class ConnectionUtil {
     public static Connection createConnection(){
 
         try { //AZURE_SQL_DB
-            Connection conn = DriverManager.getConnection("jdbc:postgresql://canlapan-sql-server.postgres.database.azure.com:5432/project0db?user=Jaleckcn&password=Drumroll1993!&ssl=false");
+            Connection conn = DriverManager.getConnection(System.getenv("AZURE_SQL_DB"));
             return conn;
         } catch (SQLException e){
             e.printStackTrace();

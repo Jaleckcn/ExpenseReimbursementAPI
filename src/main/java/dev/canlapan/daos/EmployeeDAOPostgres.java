@@ -24,13 +24,14 @@ public class EmployeeDAOPostgres implements EmployeeDAO {
             ResultSet rs = preparedStatement.getGeneratedKeys(); //returns the id that was created
             rs.next(); //you have to move the cursor to the first valid record
 
-            int generatedKey = rs.getInt("employeeID");
+            int generatedKey = rs.getInt("employee_id");
             employee.setEmployeeID(generatedKey);
             System.out.println(employee);
             return employee;
 
 
         }catch(SQLException e){
+            e.printStackTrace();
             return null;
         }
 
@@ -64,27 +65,26 @@ public class EmployeeDAOPostgres implements EmployeeDAO {
     @Override
     public List<Employee> getAllEmployees() {
 
-//        try(Connection connection = ConnectionUtil.createConnection()){
-//            String sql = "select * from employee";
-//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//
-//            ResultSet rs = preparedStatement.executeQuery();
-//
-//            List<Employee> employeeList = new ArrayList();
-//            while(rs.next()){
-//                Employee employee = new Employee();
-//                Employee.setEmployeeID(rs.getInt("employee_id"));
-//                Employee.setEmployeeFirstName(rs.getString("first_name"));
-//                Employee.setEmployeeLastName(rs.getString("last_name"));
-//                employeeList.add(employee);
-//            }
-//            return employeeList;
-//
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//            return null;
-//        }
-        return null;
+        try(Connection connection = ConnectionUtil.createConnection()){
+            String sql = "select * from employee";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            List<Employee> employeeList = new ArrayList();
+            while(rs.next()){
+                Employee employee = new Employee();
+                employee.setEmployeeID(rs.getInt("employee_id"));
+                employee.setEmployeeFirstName(rs.getString("first_name"));
+                employee.setEmployeeLastName(rs.getString("last_name"));
+                employeeList.add(employee);
+            }
+            return employeeList;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
