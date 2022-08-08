@@ -7,6 +7,7 @@ import dev.canlapan.entities.Expense;
 import dev.canlapan.entities.Status;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ExpenseServiceImpl implements ExpenseService{
 
@@ -21,7 +22,7 @@ public class ExpenseServiceImpl implements ExpenseService{
         }
 
         if(expense.getType().length() == 0){
-            throw new RuntimeException("Please fill out the description field. Ex.) hotel accommodations, gas, food or other ");
+            throw new RuntimeException("Please fill out the description field. Ex.) Lodging, gas, food or other ");
         }
 
         if(expense.getDescription().length() == 0){
@@ -45,7 +46,12 @@ public class ExpenseServiceImpl implements ExpenseService{
 
     @Override
     public List<Expense> getStatus(Status status) {
-        return null;
+
+        List<Expense> temp = expenseDAO.getAllExpenses();
+
+        List<Expense> expenseByStatus = temp.stream().filter(expense -> expense.getExpenseStatus() == status).collect(Collectors.toList());
+
+        return expenseByStatus;
     }
 
     @Override
@@ -72,6 +78,15 @@ public class ExpenseServiceImpl implements ExpenseService{
         } else {
             throw new RuntimeException("Expense ID does not exist");
         }
+    }
+
+    @Override
+    public List<Expense> getAllExpenseByEmployeeID(int employeeID) {
+        List<Expense> temp = expenseDAO.getAllExpenses();
+
+        List<Expense> expenses = temp.stream().filter(expense -> expense.getEmployeeID() == employeeID).collect(Collectors.toList());
+
+        return expenses;
     }
 
     @Override

@@ -90,15 +90,14 @@ public class EmployeeDAOPostgres implements EmployeeDAO {
     @Override
     public Employee updateEmployee(int employeeID, Employee employee) {
         try(Connection conn = ConnectionUtil.createConnection()){
-
             String sql = "update employee set first_name = ?, last_name = ? where employee_id = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             preparedStatement.setString(1, employee.getEmployeeFirstName());
             preparedStatement.setString(2, employee.getEmployeeLastName());
-            preparedStatement.setInt(3,employee.getEmployeeID());
+            preparedStatement.setInt(3,employeeID);
 
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
             return employee;
 
         }catch (SQLException e){

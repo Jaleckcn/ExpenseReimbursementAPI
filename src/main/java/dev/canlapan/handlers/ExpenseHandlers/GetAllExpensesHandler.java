@@ -21,6 +21,7 @@ public class GetAllExpensesHandler implements Handler {
             ctx.result(json);
         } else {
             String status1 = status.toUpperCase();
+            System.out.println("All expenses query");
             List<Expense> expenses = App.expenseService.getStatus(Status.valueOf(status1));
             String json = gson.toJson(expenses);
             ctx.result(json);

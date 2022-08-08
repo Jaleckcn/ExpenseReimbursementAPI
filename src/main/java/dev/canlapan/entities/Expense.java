@@ -1,5 +1,7 @@
 package dev.canlapan.entities;
 
+import java.util.List;
+
 public class Expense {// class are singular, handles are plural
     private int expenseID;//expense ID number
     private float expenseAmount;//ranging from $0.01 to $x.xx
@@ -39,10 +41,7 @@ public class Expense {// class are singular, handles are plural
         this.expenseAmount = expenseAmount;
     }
 
-    public Status getExpenseStatus() {
-        return expenseStatus;
-    }
-
+    public Status getExpenseStatus() {return expenseStatus;}
     public void setExpenseStatus(Status expenseStatus) {
         this.expenseStatus = expenseStatus;
     }

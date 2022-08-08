@@ -32,6 +32,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
 
             return expense;
         }catch(SQLException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -40,7 +41,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
     public Expense getExpenseByID(int expenseID) {
         //Ex.) insert into expense values (default, 1, 50.00, 'PENDING','Used company car for work','Gas');
         try(Connection connection = ConnectionUtil.createConnection()){
-            String sql = "select * from employee where expense_id = ?";
+            String sql = "select * from expense where expense_id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1,expenseID);
 
@@ -53,7 +54,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
             expense.setExpenseAmount(rs.getFloat("expense_amount"));
             expense.setExpenseStatus(Status.valueOf(rs.getString("expense_status")));
             expense.setDescription(rs.getString("description"));
-            expense.setType(rs.getString("type"));
+            expense.setType(rs.getString("expense_type"));
 
             return expense;
 
@@ -79,7 +80,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
                 expense.setExpenseAmount(rs.getFloat("expense_amount"));
                 expense.setExpenseStatus(Status.valueOf(rs.getString("expense_status")));
                 expense.setDescription(rs.getString("description"));
-                expense.setType(rs.getString("type"));
+                expense.setType(rs.getString("expense_type"));
                 expenseList.add(expense);
             }
             return expenseList;
@@ -94,14 +95,15 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
     public Expense updateExpense(int expenseID, Expense expense) {
         try(Connection conn = ConnectionUtil.createConnection()){
 
-            String sql = "update expense set employee_id = ?, expense_amount = ?, description = ?, type = ? where expense_id = ?";
+            String sql = "update expense set employee_id = ?, expense_amount = ?, expense_status = ?, description = ?, expense_type = ? where expense_id = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             preparedStatement.setInt(1, expense.getEmployeeID());
             preparedStatement.setFloat(2, expense.getExpenseAmount());
-            preparedStatement.setString(3,expense.getDescription());
-            preparedStatement.setString(4,expense.getType());
-            preparedStatement.setInt(5,expense.getExpenseID());
+            preparedStatement.setString(3, expense.getExpenseStatus().name());
+            preparedStatement.setString(4,expense.getDescription());
+            preparedStatement.setString(5,expense.getType());
+            preparedStatement.setInt(6,expense.getExpenseID());
 
             preparedStatement.executeUpdate();
             return expense;
@@ -125,5 +127,10 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<Expense> getStatus(Status status) {
+            return null;
     }
 }

@@ -21,9 +21,21 @@ public class PatchExpenseHandler implements Handler {
 
         if(status == Status.APPROVED || status == Status.DENIED) {
             //either approve or deny
-            App.expenseService.retrieveExpenseByID(expenseID).setExpenseStatus(status);
+
+           Expense tempExpense = App.expenseService.retrieveExpenseByID(expenseID);
+           if(tempExpense != null){
+               tempExpense.setExpenseStatus(status);
+               Expense updatedExpense = App.expenseService.modifyExpense(expenseID, tempExpense);
+               System.out.println(updatedExpense);
+               ctx.status(200); //expense has been approved or denied
+               ctx.result(updatedExpense.getExpenseStatus().name()); //.name taking the enum and giving the String version of enum
+               //ctx.result(status.toString());
+           }else{
+               ctx.status(404);
+               ctx.result("Expense not found");
+           }
         }
-        ctx.status(200); //expense has been approved or denied
-        ctx.result(status.toString());
+
+
     }
 }

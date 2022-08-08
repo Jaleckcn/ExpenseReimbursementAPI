@@ -18,6 +18,8 @@ public interface ExpenseService {
     Status approveExpenseByID(int expenseID);
     Status denyExpenseByID(int expenseID);
 
+    List<Expense> getAllExpenseByEmployeeID(int employeeID);
+
     Expense modifyExpense(int expenseID, Expense expense);
 
 
