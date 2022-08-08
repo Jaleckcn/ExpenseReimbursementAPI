@@ -18,6 +18,4 @@ public interface ExpenseDAO {
 
     //Delete
     boolean deleteExpenseByID(int expenseID); //method
-
-    List<Expense> getStatus(Status status);
 }

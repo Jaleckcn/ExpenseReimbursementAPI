@@ -29,7 +29,6 @@ public class PatchExpenseHandler implements Handler {
                System.out.println(updatedExpense);
                ctx.status(200); //expense has been approved or denied
                ctx.result(updatedExpense.getExpenseStatus().name()); //.name taking the enum and giving the String version of enum
-               //ctx.result(status.toString());
            }else{
                ctx.status(404);
                ctx.result("Expense not found");

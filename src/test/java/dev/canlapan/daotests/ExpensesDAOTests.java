@@ -1,5 +1,6 @@
 package dev.canlapan.daotests;
 
+import dev.canlapan.app.App;
 import dev.canlapan.daos.ExpenseDAO;
 import dev.canlapan.daos.ExpenseDAOPostgres;
 import dev.canlapan.entities.Employee;
@@ -44,7 +45,7 @@ public class ExpensesDAOTests {
     @Order(1)
     void create_expense_test(){
         //expenseID is not auto incrementing
-        Expense expense = new Expense(1, 50.00f, Status.PENDING,1,"Used company car for work","Gas");
+        Expense expense = new Expense(0, 50.00f, Status.PENDING,1,"Used company car for work","Gas");
         Expense savedExpense = this.expenseDAO.createExpense(expense);
         Assertions.assertNotEquals(0,savedExpense.getExpenseID());
     }
@@ -53,16 +54,9 @@ public class ExpensesDAOTests {
     @Order(2)
     void get_expense_by_id_test(){
         Expense expense = expenseDAO.getExpenseByID(1);
-        Assertions.assertEquals("PENDING" ,expense.getExpenseStatus());
+        Assertions.assertEquals("PENDING" ,expense.getExpenseStatus().name());
         System.out.println(expense);
     }
-
-//    @Test
-//    @Order(3)
-//    void get_expenses_by_status_pending_test(){
-//        Expense expense = expenseDAO.getStatus(Status.PENDING);
-//
-//    }
 
     @Test
     @Order(3)
@@ -87,8 +81,8 @@ public class ExpensesDAOTests {
     void get_all_employees_test(){
         Expense expense1 = new Expense (0, 1430.57f, Status.PENDING, 1,"Vacation","Lodging");
         Expense expense2 = new Expense (0, 300.39f, Status.PENDING, 3,"Office supplies for the company","Other");
-        Expense expense3 = new Expense (0, 76.21f, Status.PENDING, 7,"Gas for company car","Gas");
-        Expense expense4 = new Expense (0, 15.95f, Status.PENDING, 7,"Lunch while traveling","Food");
+        Expense expense3 = new Expense (0, 76.21f, Status.PENDING, 3,"Gas for company car","Gas");
+        Expense expense4 = new Expense (0, 15.95f, Status.PENDING, 1,"Lunch while traveling","Food");
 
         expenseDAO.createExpense(expense1);
         expenseDAO.createExpense(expense2);
@@ -105,17 +99,6 @@ public class ExpensesDAOTests {
         System.out.println(expense4);
     }
 
-    @Test
-    @Order(6)
-    void patch_expense_approved_test(){
-
-    }
-
-    @Test
-    @Order(7)
-    void patch_expense_denied_test(){
-
-    }
 
     @AfterAll // Runs after the last tests finishes
     //If you don't want the table to be deleted, just comment this section out

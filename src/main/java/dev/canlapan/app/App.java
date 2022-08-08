@@ -34,10 +34,15 @@ public class App {
         DeleteEmployeesHandler deleteEmployeesHandler = new DeleteEmployeesHandler();
         UpdateSpecificEmployeeHandler updateSpecificEmployeeHandler = new UpdateSpecificEmployeeHandler();
 
+        //Creating an employee
         app.post("/employees", createEmployeesHandler);
+        //Getting all employees
         app.get("/employees",getAllEmployeesHandler);
+        //Getting a specific employee by ID
         app.get("/employees/{employeeID}",getSpecificEmployeeHandler);
+        //Deleting an employee by ID
         app.delete("/employees/{employeeID}", deleteEmployeesHandler);
+        //Updating fields in an employee's record
         app.put("/employees/{employeeID}",updateSpecificEmployeeHandler);
 
         CreateExpenseHandler createExpenseHandler = new CreateExpenseHandler();
@@ -48,7 +53,9 @@ public class App {
         PatchExpenseHandler patchExpenseHandler = new PatchExpenseHandler();
 
 
+        //Creating an expense
         app.post("/expenses",createExpenseHandler);
+        //Getting all expenses
         app.get("/expenses",getAllExpensesHandler);
         app.get("/expenses/{expenseID}",getSpecificExpenseHandler);
         app.put("/expenses/{expenseID}",updateExpenseHandler);

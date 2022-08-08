@@ -81,16 +81,16 @@ public class EmployeesDAOTests {
         Assertions.assertEquals(3,employeeList.size());
 
     }
-//        @AfterAll // Runs after the last tests finishes
-//    //If you don't want the table to be deleted, just comment this section out
-//    static void teardown(){
-//        try(Connection connection = ConnectionUtil.createConnection()){
-//            String sql = "drop table employee";
-//            Statement statement = connection.createStatement();
-//            statement.execute(sql);
-//        }catch(SQLException e){
-//            e.printStackTrace();
-//        }
-//    }
+        @AfterAll // Runs after the last tests finishes
+    //If you don't want the table to be deleted, just comment this section out
+    static void teardown(){
+        try(Connection connection = ConnectionUtil.createConnection()){
+            String sql = "drop table employee";
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
 }

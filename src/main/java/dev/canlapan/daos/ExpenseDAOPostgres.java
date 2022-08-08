@@ -1,10 +1,8 @@
 package dev.canlapan.daos;
 
-import dev.canlapan.entities.Employee;
 import dev.canlapan.entities.Expense;
 import dev.canlapan.entities.Status;
 import dev.canlapan.utils.ConnectionUtil;
-import jdk.jshell.Snippet;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,6 +27,8 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
 
             ResultSet rs = preparedStatement.getGeneratedKeys();
             rs.next();
+
+            expense.setExpenseID(rs.getInt("expense_id"));
 
             return expense;
         }catch(SQLException e) {
@@ -129,8 +129,4 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
         }
     }
 
-    @Override
-    public List<Expense> getStatus(Status status) {
-            return null;
-    }
 }

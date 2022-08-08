@@ -1,8 +1,6 @@
 package dev.canlapan.daos;
 
-import dev.canlapan.entities.Employee;
 import dev.canlapan.entities.Expense;
-import dev.canlapan.entities.Status;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,18 +49,6 @@ public class ExpenseDAOLocal implements ExpenseDAO {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public List<Expense> getStatus(Status status) {
-        List<Expense> temp = new ArrayList();
-        for (Map.Entry<Integer, Expense> id : expenseTable.entrySet()){
-            if(id.getValue().getExpenseStatus()==status){
-                temp.add(id.getValue());
-            }
-        }
-        return temp;
-
     }
 
 }
