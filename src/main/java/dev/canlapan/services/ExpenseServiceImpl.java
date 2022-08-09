@@ -1,8 +1,6 @@
 package dev.canlapan.services;
 
 import dev.canlapan.daos.ExpenseDAO;
-import dev.canlapan.daos.ExpenseDAOLocal;
-import dev.canlapan.entities.Employee;
 import dev.canlapan.entities.Expense;
 import dev.canlapan.entities.Status;
 
@@ -22,11 +20,11 @@ public class ExpenseServiceImpl implements ExpenseService{
         }
 
         if(expense.getType().length() == 0){
-            throw new RuntimeException("Please fill out the description field. Ex.) Lodging, gas, food or other ");
+            throw new RuntimeException("Type of Expenses: BUSINESS TRAVEL, EDUCATION/TRAINING, BUSINESS SUPPLIES, BUSINESS TOOLS, OTHER");
         }
 
         if(expense.getDescription().length() == 0){
-            throw new RuntimeException("Type of expense must be filled out. Ex.) travel, education, supplies, tools or other ");
+            throw new RuntimeException("Description field must be filled out.");
         }
         Expense savedExpense = this.expenseDAO.createExpense(expense);
         return savedExpense;

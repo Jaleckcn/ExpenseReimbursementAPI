@@ -57,9 +57,13 @@ public class App {
         app.post("/expenses",createExpenseHandler);
         //Getting all expenses
         app.get("/expenses",getAllExpensesHandler);
+        //Getting a specific expense by ID
         app.get("/expenses/{expenseID}",getSpecificExpenseHandler);
+        //Updating fields in an expense by ID
         app.put("/expenses/{expenseID}",updateExpenseHandler);
+        //Approving or Denying an expense
         app.patch("/expenses/{expenseID}/{status}",patchExpenseHandler); //patch is used to change the Status field of the Expenses
+        //Deleting a pending expense by ID
         app.delete("/expenses/{expenseID}",deleteExpenseHandler);
 
         Handler getAllExpensesByEmployeeID = ctx ->{

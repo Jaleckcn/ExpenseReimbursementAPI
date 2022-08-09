@@ -40,7 +40,7 @@ public class MockExampleTests {
     @Test
     void registered_expenses_must_have_expense_amount(){
         ExpenseDAO expenseDAO = Mockito.mock(ExpenseDAO.class);
-        Expense expense = new Expense(1,-100.00f, Status.PENDING,1,"Gas for company car","Travel");
+        Expense expense = new Expense(1,-100.00f, Status.PENDING,1,"Gas for company car","BUSINESS TRAVEL");
         Mockito.when(expenseDAO.createExpense(expense)).thenReturn(expense);
         ExpenseService expenseService = new ExpenseServiceImpl(expenseDAO);
 
@@ -55,10 +55,10 @@ public class MockExampleTests {
         ExpenseDAO expenseDAO = Mockito.mock(ExpenseDAO.class);
         //creating a list of fake expenses
         List<Expense> fakeExpenses = new ArrayList<>();
-        fakeExpenses.add(new Expense(0,100.00f, Status.PENDING,1,"Gas for company car","Travel"));
-        fakeExpenses.add(new Expense(0,346.75f, Status.DENIED,2,"Hotel room for one night on Vacation","Lodging"));
-        fakeExpenses.add(new Expense(0,4000.29f, Status.PENDING,3,"Computers for Work Room 101","Office Supplies"));
-        fakeExpenses.add(new Expense(0,5000.00f, Status.APPROVED,1,"Tuition for Fall 2022 Semester","Education"));
+        fakeExpenses.add(new Expense(0,100.00f, Status.PENDING,1,"Gas for company car","BUSINESS TRAVEL"));
+        fakeExpenses.add(new Expense(0,346.75f, Status.DENIED,2,"Hotel room for one night on Vacation","BUSINESS TRAVEL"));
+        fakeExpenses.add(new Expense(0,4000.29f, Status.PENDING,3,"Computers for Work Room 101","BUSINESS TOOLS"));
+        fakeExpenses.add(new Expense(0,5000.00f, Status.APPROVED,1,"Tuition for Fall 2022 Semester","EDUCATION/TRAINING"));
 
         Mockito.when(expenseDAO.getAllExpenses()).thenReturn(fakeExpenses);
 

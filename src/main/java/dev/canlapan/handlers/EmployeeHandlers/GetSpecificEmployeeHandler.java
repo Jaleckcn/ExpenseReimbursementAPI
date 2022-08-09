@@ -18,6 +18,8 @@ public class GetSpecificEmployeeHandler implements Handler {
        try {
            String json = gson.toJson(employee);
            System.out.println(json.getClass().getName());
+
+           //Checking to see if the Employee ID is valid. If not, return 404 status
            if (json.equals("null")) {
                ctx.status(404);
                ctx.result("Employee ID " + employeeID + " not found");
@@ -27,7 +29,7 @@ public class GetSpecificEmployeeHandler implements Handler {
            }
        } catch (RuntimeException e) {
            ctx.status(500);
-           ctx.result("Employee ID " + employeeID + " not found");
+           ctx.result("Error");
        }
     }
 }

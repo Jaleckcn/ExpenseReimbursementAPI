@@ -16,6 +16,7 @@ public class UpdateExpenseHandler implements Handler {
         String expenseJSON = ctx.body();
         Gson gson = new Gson();
         Expense expense = gson.fromJson(expenseJSON, Expense.class);
+        //Checking to see if the Expense ID is valid. If not, return 404 status
         if (temp == null){
             ctx.status(404);
             ctx.result("Expense ID " + expenseID + " not found");

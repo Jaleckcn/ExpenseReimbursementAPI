@@ -12,6 +12,8 @@ public class DeleteEmployeesHandler implements Handler {
     public void handle(@NotNull Context ctx) throws Exception {
         int employeeID = Integer.parseInt(ctx.pathParam("employeeID"));
         Employee temp = App.employeeService.retrieveEmployeeByID(employeeID);
+
+        //Checking to see if the Employee ID is valid. If not, return 404 status
         if (temp == null){
             ctx.status(404);
             ctx.result("Employee ID " + employeeID + " not found");

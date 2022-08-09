@@ -17,6 +17,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
             String sql = "insert into expense values (default, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
+            //setting the fields with values given using Postman
             preparedStatement.setInt(1, expense.getEmployeeID());
             preparedStatement.setDouble(2, expense.getExpenseAmount());
             preparedStatement.setString(3, Status.PENDING.name());//.name is toString for ENUMS
@@ -72,6 +73,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
 
             ResultSet rs = preparedStatement.executeQuery();
 
+            //creating a list that will hold our expense records
             List<Expense> expenseList = new ArrayList();
             while(rs.next()){
                 Expense expense = new Expense();
@@ -81,7 +83,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
                 expense.setExpenseStatus(Status.valueOf(rs.getString("expense_status")));
                 expense.setDescription(rs.getString("description"));
                 expense.setType(rs.getString("expense_type"));
-                expenseList.add(expense);
+                expenseList.add(expense);//expense has been added to our list
             }
             return expenseList;
 

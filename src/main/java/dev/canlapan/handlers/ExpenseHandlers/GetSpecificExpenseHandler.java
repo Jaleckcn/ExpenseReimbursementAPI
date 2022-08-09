@@ -18,6 +18,7 @@ public class GetSpecificExpenseHandler implements Handler {
         Gson gson = new Gson();
         String expense = gson.toJson(temp);
         System.out.println(temp);
+        //Checking to see if the Expense ID is valid. If not, return 404 status
         if (temp == null){
             ctx.status(404);
             ctx.result("Expense ID " + expenseID + " not found");

@@ -14,10 +14,12 @@ public class DeleteExpenseHandler implements Handler {
     public void handle(@NotNull Context ctx) throws Exception {
         int expenseID = Integer.parseInt(ctx.pathParam("expenseID"));
         Expense temp = App.expenseService.retrieveExpenseByID(expenseID);
+        //Checking to see if the Expense ID is valid. If not, return 404 status
         if (temp == null){
             ctx.status(404);
             ctx.result("Expense ID " + expenseID + " not found");
             return;
+        //Checking to see if the Status is Pending before deletion
         }else if (temp.getExpenseStatus() == Status.PENDING){
             App.expenseService.deleteExpenseID(expenseID);
             ctx.status(200);
